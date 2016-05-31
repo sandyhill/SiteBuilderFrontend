@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outfile": "scripts/editor.js"
+  },
+  "files": [
+    "scripts/editor.ts",
+    "../misc/jquery.d.ts"
+  ]
+}
