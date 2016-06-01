@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "outfile": "scripts/editor.js"
+    "module": "amd",
+    "moduleResolution": "node"
   },
   "files": [
     "scripts/editor.ts",
-    "../misc/jquery.d.ts"
+    "../misc/jquery.d.ts",
+    "../misc/utils.ts"
   ]
 }

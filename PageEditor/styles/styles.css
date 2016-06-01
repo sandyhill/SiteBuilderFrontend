@@ -1,0 +1,106 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", Helvetica, sans-serif;
+}
+
+header {
+  
+}
+
+main {
+  min-height: 100vh;
+}
+
+#menu-bar {
+  padding: 10px;
+  margin: 10px;
+  width: calc(100% - 20px);
+  
+}
+
+#menu-bar.pin-top {
+  position: absolute;
+}
+
+#menu-bar.pin-bottom {
+  position: relative;
+}
+
+#menu-bar.pinned {
+  position:relative;
+}
+
+a i.material-icons {
+  margin-right: 5px;
+}
+
+.menu-button {
+  padding:0 3rem;
+}
+
+.menu-button i {
+  vertical-align: bottom;
+}
+
+.component-button i {
+  vertical-align: bottom;
+}
+
+.component {
+  box-sizing: border-box;
+  border: none;
+}
+
+.component-container {
+  box-sizing: border-box;
+  border: none;
+}
+
+.component-container:hover {
+  border: 1px solid #ff0;
+}
+
+.component.component-container:hover {
+  border: 1px solid #fa0;
+  
+}
+
+.component-container:hover .component {
+  border: 1px solid #f00;
+  
+}
+
+.component-container-drop-target {
+  box-sizing: border-box;
+  border: none;
+  height: 10px;
+}
+
+.component-container-drop-target:hover {
+  border: 1px solid #0a0;
+  
+}
+
+.component-overlay-container {
+  position: relative;
+  top: 0;
+  right: 0;
+  height: 1.25em;
+}
+
+.component-overlay {
+  display:none;
+}
+
+.component:hover .component-overlay {
+  display:block;
+}
+
+.component-overlay .btn-move {
+  cursor: move;
+}
+
+footer {
+  
+}
