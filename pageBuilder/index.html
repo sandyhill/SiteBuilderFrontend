@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Editor</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700|Syncopate:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#" data-activates="nav-drawer" class="button-collapse" style="display:block;"><i class="material-icons">menu</i></a>
+        <a class="page-title">Page Editor</a>
+        <ul id="nav-drawer" class="side-nav grey-text text-darken-2">
+          <li><a href="#" class="waves-effect">Logo</a></li>
+          <li><a href="#" class="waves-effect">Link 1</a></li>
+          <li><a href="#" class="waves-effect">Link 2</a></li>
+          <li class="no-padding">
+            <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <a class="collapsible-header waves-effect waves-red">Section 1</a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li><a href="#" class="waves-effect">Link 1.1</a></li>
+                    <li><a href="#" class="waves-effect">Link 1.2</a></li>
+                    <li><a href="#" class="waves-effect">Link 1.3</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <a class="collapsible-header waves-effect waves-red">Section 2</a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li><a href="#" class="waves-effect">Link 2.1</a></li>
+                    <li><a href="#" class="waves-effect">Link 2.2</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#" class="waves-effect">Link 3</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div style="position:relative;">
+        <div id="menu-bar" class="card">
+          <a class="dropdown-button btn waves-effect waves-light menu-button" data-activates="menu-struct" href="#"><i class="material-icons">dashboard</i> Structure</a>
+          <a class="dropdown-button btn waves-effect waves-light menu-button" data-activates="menu-text" href="#"><i class="material-icons">text_fields</i> Text</a>
+          <a class="dropdown-button btn waves-effect waves-light menu-button" data-activates="menu-cards" href="#"><i class="material-icons">credit_card</i> Cards</a>
+          <a class="dropdown-button btn waves-effect waves-light menu-button" data-activates="menu-media" href="#"><i class="material-icons">photo_camera</i><i class="material-icons">mic</i> Media</a>
+          <a class="dropdown-button btn waves-effect waves-light menu-button" data-activates="menu-embed" href="#"><i class="material-icons">exit_to_app</i> Embed</a>
+          
+          <ul id="menu-struct" class="dropdown-content">
+            <li><a href="#" class="waves-effect component-button" id="btn-parallax"><i class="material-icons">panorama</i>Parallax</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-container"><i class="material-icons">line_style</i>12 Column</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-row"><i class="material-icons">view_stream</i>Row</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-col"><i class="material-icons">view_array</i>Column</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-table"><i class="material-icons">border_all</i>Table</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-accordion"><i class="material-icons">view_day</i>Accordion</a></li>
+          </ul>
+          <ul id="menu-text" class="dropdown-content">
+            <li><a href="#" class="waves-effect component-button" id="btn-header"><i class="material-icons">title</i>Header</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-paragraph"><i class="material-icons">short_text</i>Paragraph</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-list"><i class="material-icons">format_list_bulleted</i>List</a></li>
+          </ul>
+          <ul id="menu-cards" class="dropdown-content">
+            <li><a href="#" class="waves-effect component-button" id="btn-card-panel"><i class="material-icons">receipt</i>Card Panel</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-card-basic"><i class="material-icons">call_to_action</i>Basic Card</a></li>
+            <li class="divider"></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-card-image"><i class="material-icons">crop_original</i>Image Card</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-card-reveal"><i class="material-icons">subtitles</i>Reveal Card</a></li>
+          </ul>
+          <ul id="menu-media" class="dropdown-content">
+            <li><a href="#" class="waves-effect component-button" id="btn-image"><i class="material-icons">insert_photo</i>Image</a></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-gallery"><i class="material-icons">photo_library</i>Gallery</a></li>
+            <li class="divider"></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-video"><i class="material-icons">movie</i>Video</a></li>
+            <li class="divider"></li>
+            <li><a href="#" class="waves-effect component-button" id="btn-audio"><i class="material-icons">music_note</i>Audio</a></li>
+          </ul>
+          <ul id="menu-embed" class="dropdown-content">
+            <li><a href="#" class="waves-effect component-button"><i class="material-icons">view_list</i>Stream</a></li>
+            <li><a href="#" class="waves-effect component-button"><i class="material-icons">assignment</i>Post</a></li>
+            <li><a href="#" class="waves-effect component-button"><i class="material-icons">class</i>Reference</a></li>
+            <li><a href="#" class="waves-effect component-button"><i class="material-icons">contacts</i>Person</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col s12">
+        <hr style="height: 5rem; border: none;"/>
+        <article id="edit-area" class="container">
+          <div class="row">
+            <div class="col s12">
+              <div class="component-container-drop-target" style="height: 30px;"></div>
+            </div>
+          </div>
+        </article>
+        <div id="drag-shadow" style="display:none; position:absolute;"><i class="material-icons"></i></div>
+      </div>
+      <!--<div class="col l2 m3 hide-on-small-only"></div>-->
+    </main>
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l3 m6 s12">Footer col</div>
+          <div class="col l3 m6 s12">Footer col</div>
+          <div class="col l3 m6 s12">Footer col</div>
+          <div class="col l3 m6 s12">Footer col</div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          
+        </div>
+      </div>
+    </footer>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script src="scripts/editor.js"></script>
+  </body>
+</html>
