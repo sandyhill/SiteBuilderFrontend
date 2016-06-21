@@ -240,17 +240,6 @@ public class MediaImage extends AbstractMediaEntry {
 	}
 
 	@Override
-	public AccessControlList getACL() {
-		try {
-			return AccessControlList.aclFromKey((Key) ent.getProperty("object-acl"));
-			
-		} catch (EntityNotFoundException e) {
-			LOG.log(Level.WARNING, "Unable to retrieve ACL Entity", e);
-			return null;
-		}
-	}
-
-	@Override
 	public Key getAclKey() {
 		return (Key) ent.getProperty("object-acl");
 	}

@@ -58,8 +58,18 @@ public class AccessControlList implements IStorable {
 		}
 	}
 	
+	public AccessControlList createDuplicate() {
+		AccessControlList newAcl = new AccessControlList(this.getOwnerKey());
+		
+		return newAcl;
+	}
+	
 	public long getOwnerId() {
 		return 0;
+	}
+	
+	public Key getOwnerKey() {
+		return (Key) ent.getProperty("user-acl-owner");
 	}
 	
 	@Override

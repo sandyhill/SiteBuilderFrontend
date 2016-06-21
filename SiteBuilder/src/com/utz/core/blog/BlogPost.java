@@ -33,10 +33,13 @@ public class BlogPost implements IStorable, ISupportAccessControls, ITextContent
 
 	private Entity ent;
 
-	public BlogPost(String title, Blog parent) {
+	public BlogPost(String title, Blog parent) throws EntityNotFoundException {
 		this.ent = new Entity("blog-post", ROOT_KEY);
 		
-		TextContent content = new TextContent(title, parent.getACL().getOwnerId(), ent.getKey());
+		AccessControlList parentACL = AccessControlList.aclFromKey(parent.getAclKey());
+		
+		
+		TextContent content = new TextContent(title, parentACL.getOwnerId(), ent.getKey());
 	}
 	
 	public BlogPost(Entity ent) {
@@ -80,17 +83,6 @@ public class BlogPost implements IStorable, ISupportAccessControls, ITextContent
 		return (Key) ent.getProperty("blog-post-directory");
 	}
 	
-	@Override
-	public AccessControlList getACL() {
-		try {
-			return AccessControlList.aclFromKey((Key) ent.getProperty("object-acl"));
-			
-		} catch (EntityNotFoundException e) {
-			LOG.log(Level.WARNING, "Unable to retrieve ACL Entity", e);
-			return null;
-		}
-	}
-
 	@Override
 	public Key getAclKey() {
 		return (Key) ent.getProperty("object-acl");

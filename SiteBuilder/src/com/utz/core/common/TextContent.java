@@ -305,12 +305,6 @@ public class TextContent implements IStorable, IAsyncStorable, ISupportAccessCon
 	}
 
 	@Override
-	public AccessControlList getACL() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Key getAclKey() {
 		return (Key) ent.getProperty("object-acl");
 	}
