@@ -1,0 +1,11 @@
+#menu-button {
+  margin-left: 2em;
+}
+
+#menu-button i {
+  font-size: 2em;
+}
+
+.parallax-container.main-banner {
+  min-height: 100vh;
+}
