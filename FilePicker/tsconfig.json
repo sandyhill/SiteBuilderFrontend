@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "moduleResolution": "node"
+  },
+  "files": [
+    "scripts/FilePicker.ts"
+  ]
+}
