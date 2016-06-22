@@ -6,7 +6,7 @@ module FilePicker {
       private 
     }
   }
-  
+    
   namespace upload {
     function transferFromDropbox(extensions: string[] = []): void {
       Dropbox.choose({

@@ -5,45 +5,37 @@ export module PageEditor {
     public isDragging: boolean = false;
     public draggingComponent: Component;
     private dragShadow: JQuery;
+    private rootComponent: RootComponent;
     
     constructor() {
       this.initListeners();
+      this.rootComponent = new RootComponent();
+      this.dragShadow = $("#drag-shadow");
+      
+      $("main").on("mousemove", (e: JQueryEventObject) => {
+        this.dragShadow.css("top", e.pageY + 5);
+        this.dragShadow.css("left", e.pageX + 5);
+      });
     }
     
     private initListeners(): void {
       $("#btn-parallax").on("click", (e: Event) => {
-        this.isDragging = true;
-        this.draggingComponent = new ParallaxComponent();
-        this.dragShadow.find("i").text("panorama");
-        this.dragShadow.css("display", "block");
-        
+        this.startDragging(new ParallaxComponent(), "panorama")
       });
       $("#btn-container").on("click", (e: Event) => {
-        this.isDragging = true;
-        this.draggingComponent = new GridComponent();
-        this.dragShadow.find("i").text("line_style");
-        this.dragShadow.css("display", "block");
-        
+        this.startDragging(new GridComponent(), "line_style");
       });
       $("#btn-row").on("click", (e: Event) => {
-        this.isDragging = true;
-        this.draggingComponent = new RowComponent();
-        this.dragShadow.find("i").text("view_stream");
-        this.dragShadow.css("display", "block");
-        
+        this.startDragging(new RowComponent(), "view_stream");
       });
-      $("#btn-column").on("click", (e: Event) => {
-        this.isDragging = true;
-        this.draggingComponent = new ColComponent();
-        this.dragShadow.find("i").text("view_array");
-        this.dragShadow.css("display", "block");
-        
+      $("#btn-col").on("click", (e: Event) => {
+        this.startDragging(new ColComponent(), "view_array");
       });
       $("#btn-table").on("click", (e: Event) => {
         
       });
       $("#btn-accordion").on("click", (e: Event) => {
-        
+        this.startDragging(new AccordionComponent(), "view_day")
       });
 
       //text
@@ -75,16 +67,27 @@ export module PageEditor {
       });
     }
     
+    private startDragging(comp: Component, icon: string): void {
+      this.isDragging = true;
+      this.draggingComponent = comp;
+      this.dragShadow.find("i").text(icon);
+      this.dragShadow.css("display", "block");
+      this.rootComponent.clearHighlight();
+      this.rootComponent.highlightForDropType(comp.getType());
+    }
+    
     public endDrag(): void {
       this.isDragging  = false;
       this.draggingComponent = null;
       this.dragShadow.css("display", "none");
+      this.rootComponent.clearHighlight();
     }
     
     public static instance: Editor;
   }
   
   export enum ComponentTypes {
+    ROOT,
     PARALLAX, GRID, ROW, COL, TABLE, ACCORDION,     // structural
     HEADER, PARAGRAPH, LIST,                        // text
     PANEL_CARD, BASIC_CARD, IMAGE_CARD, REVEAL_CARD,// cards
@@ -96,7 +99,7 @@ export module PageEditor {
     
     protected parent: ContainerComponent;
     
-    protected element: JQuery;
+    public element: JQuery;
     
     constructor() {
       
@@ -121,7 +124,7 @@ export module PageEditor {
   
   export abstract class ContainerComponent extends Component {
     
-    protected containerElement: JQuery;
+    public containerElement: JQuery;
     
     //children are NOT stored in order
     private children: collections.List<Component>;
@@ -173,7 +176,7 @@ export module PageEditor {
       });
     }
 
-    public static isContainer(copm: Component): comp is ContainerComponent {
+    public static isContainer(comp: Component): comp is ContainerComponent {
       return comp.getType() == ComponentTypes.PARALLAX || 
         comp.getType() == ComponentTypes.GRID || 
         comp.getType() == ComponentTypes.ROW || 
@@ -195,13 +198,34 @@ export module PageEditor {
         let edit: Editor = Editor.instance;
         
         if (edit.isDragging && this.cont.acceptsChildType(edit.draggingComponent.getType())) {
-          edit.endDrag();
           this.cont.addChild(edit.draggingComponent, this.element);
+          edit.endDrag();
         }
       });
     }
   }
 
+  class RootComponent extends ContainerComponent {
+    constructor() {
+      super()
+      this.element = $("article#edit-area");
+      this.containerElement = this.element;
+      this.containerInit();
+    }
+    
+    public getType(): ComponentTypes {
+      return ComponentTypes.ROOT;
+    }
+    
+    public acceptsChildType(type: ComponentTypes): boolean {
+      return type != ComponentTypes.COL;
+    }
+    
+    public isRoot(comp: Component): comp is RootComponent {
+      return comp.getType() == ComponentTypes.ROOT;
+    }
+  }
+  
   class ParallaxComponent extends ContainerComponent {
     
     private imageElement: JQuery;
@@ -210,6 +234,7 @@ export module PageEditor {
       super();
       this.element = $("<div></div>");
       this.element.addClass("parallax-container");
+      this.element.addClass("component");
       
       let parallax: JQuery = $("<div></div>");
       parallax.addClass("parallax");
@@ -246,6 +271,7 @@ export module PageEditor {
       this.containerElement = this.element;
       
       this.element.addClass("container");
+      this.element.addClass("component");
       
       this.containerInit();
     }
@@ -270,6 +296,7 @@ export module PageEditor {
       this.containerElement = this.element;
       
       this.element.addClass("row");
+      this.element.addClass("component");
       
       this.containerInit();
     }
@@ -297,6 +324,7 @@ export module PageEditor {
       this.element.addClass("l3");
       this.element.addClass("m4");
       this.element.addClass("s12");
+      this.element.addClass("component");
       
       this.containerInit();
     }
@@ -316,11 +344,12 @@ export module PageEditor {
     }
   }
   
+  /*
   class TableComponent extends ContainerComponent {
     
   }
-
-  class Accordion extends Component {
+  */
+  class AccordionComponent extends Component {
     
     protected containerElement: JQuery;
     
@@ -330,12 +359,11 @@ export module PageEditor {
       super();
       this.element = $("<ul></ul>");
       this.containerElement = this.element;
-      this.children = new collections.List<AccordionElement>();
+      this.children = new collections.LinkedList<AccordionElement>();
       
       this.element.addClass("collapsible");
+      this.element.addClass("component");
       this.element.attr("data-collapsible", "accordion");
-      
-      this.containerInit();
     }
 
     public getType(): ComponentTypes {
@@ -344,6 +372,10 @@ export module PageEditor {
 
     public isAccordion(comp: Component): comp is AccordionComponent {
       return comp.getType() == ComponentTypes.ACCORDION;
+    }
+
+    public isContainer(): boolean {
+      return false;
     }
   }
   
@@ -367,6 +399,15 @@ export module PageEditor {
     constructor() {
       super();
       this.element = $("<h2></h2>");
+      this.element.addClass("component");
+    }
+    
+    public getType(): ComponentTypes {
+      return ComponentTypes.HEADER;
+    }
+    
+    public isContainer(): boolean {
+      return false;
     }
   }
   
